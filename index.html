@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Becoming Friends with My Camera — CS 180 Proj 0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE7DD;
+    --paper-dim:#E2DBCA;
+    --ink:#211F1B;
+    --ink-soft:#615D53;
+    --line:#C9BFAC;
+    --accent:#2C4A7C;
+    --accent-soft:#B9CEE6;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --maxw: 880px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent);}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav.topbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(237,231,221,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.topbar .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+  }
+  .mark{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .mark .bracket{color:var(--accent); font-weight:500;}
+  nav.topbar ul{
+    list-style:none; display:flex; gap:22px; margin:0; padding:0;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.04em;
+  }
+  nav.topbar a{color:var(--ink-soft); text-decoration:none; text-transform:uppercase;}
+  nav.topbar a:hover{color:var(--accent);}
+
+  /* ---------- HERO / VIEWFINDER ---------- */
+  header.hero{
+    padding:64px 0 56px;
+  }
+  .viewfinder{
+    position:relative;
+    border:1px solid var(--line);
+    padding:56px 32px;
+    text-align:center;
+    background:var(--paper-dim);
+  }
+  .viewfinder::before, .viewfinder::after,
+  .vf-corner-tr, .vf-corner-bl{
+    content:"";
+    position:absolute;
+    width:28px; height:28px;
+    border:2px solid var(--accent);
+  }
+  .viewfinder::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .viewfinder::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .vf-corner-tr{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .vf-corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 18px;
+  }
+  h1.title{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(30px, 5vw, 48px);
+    line-height:1.08; margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .byline{
+    font-family:var(--body); color:var(--ink-soft);
+    font-size:16px; margin:0 0 22px;
+  }
+  .exif{
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+    letter-spacing:0.03em;
+    display:inline-flex; gap:14px; flex-wrap:wrap; justify-content:center;
+    border-top:1px solid var(--line); padding-top:16px;
+  }
+  .exif span b{color:var(--ink); font-weight:500;}
+
+  .intro-copy{
+    max-width:640px; margin:36px auto 0;
+    font-size:16.5px; color:var(--ink);
+    text-align:left;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.part{
+    padding:64px 0;
+    border-top:1px solid var(--line);
+  }
+  .part-head{
+    display:flex; align-items:baseline; gap:16px;
+    margin-bottom:8px;
+  }
+  .part-num{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    border:1px solid var(--accent); padding:2px 8px;
+    letter-spacing:0.05em;
+  }
+  h2.part-title{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(22px, 3vw, 30px);
+    margin:0; letter-spacing:-0.01em;
+  }
+  .part-dek{
+    color:var(--ink-soft); font-size:15.5px; max-width:640px;
+    margin:14px 0 32px;
+  }
+
+  /* ---------- FRAMES / PHOTOS ---------- */
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+    margin-bottom:28px;
+  }
+  @media (max-width:620px){ .compare{grid-template-columns:1fr;} }
+
+  figure.frame{
+    margin:0; position:relative;
+  }
+  .frame-box{
+    position:relative;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    background:
+      repeating-linear-gradient(135deg, var(--paper-dim) 0 10px, var(--paper) 10px 20px);
+    border:1px solid var(--line);
+  }
+  .frame-box img{
+    position:relative; z-index:2;
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:blur(3px) saturate(0.85);
+    transition:filter 0.35s ease;
+  }
+  .frame-box:hover img, .frame-box:focus-within img{
+    filter:blur(0) saturate(1);
+  }
+  .frame-box img.missing{ display:none; }
+  .fallback{
+    position:absolute; inset:0; z-index:1;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px; padding:20px; text-align:center;
+    color:var(--ink-soft); font-family:var(--mono); font-size:12px;
+  }
+  .fallback strong{
+    color:var(--ink); font-size:13px; font-weight:500;
+  }
+  .frame-cap{
+    display:flex; justify-content:space-between; gap:12px;
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-soft);
+    padding:8px 2px 0; letter-spacing:0.02em;
+  }
+  .frame-cap b{color:var(--ink); font-weight:500;}
+
+  .why-box{
+    border-left:2px solid var(--accent);
+    background:var(--paper-dim);
+    padding:18px 22px;
+    font-size:15px;
+  }
+  .why-box .why-label{
+    font-family:var(--mono); font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--accent); display:block; margin-bottom:8px;
+  }
+  .why-box[contenteditable="true"]{cursor:text;}
+  .why-box[contenteditable="true"]:focus{outline:none; box-shadow:inset 0 0 0 1px var(--accent-soft);}
+
+  /* ---------- FILMSTRIP (dolly zoom) ---------- */
+  .filmstrip{
+    position:relative;
+    border-top:2px dashed var(--line);
+    border-bottom:2px dashed var(--line);
+    padding:14px 0;
+    margin-bottom:28px;
+    overflow-x:auto;
+  }
+  .filmstrip-track{
+    display:flex; gap:10px; min-width:min-content;
+  }
+  .filmstrip .frame-box{
+    aspect-ratio:3/4; width:150px; flex:0 0 auto;
+  }
+  .gif-frame .frame-box{
+    aspect-ratio:16/10; width:100%;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:36px 0 56px;
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  footer a{color:var(--ink-soft); text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <div class="mark"><span class="bracket">[</span>TN<span class="bracket">]</span></div>
+    <ul>
+      <li><a href="#part1">01 Selfie</a></li>
+      <li><a href="#part2">02 Facade</a></li>
+      <li><a href="#part3">03 Dolly&nbsp;Zoom</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="viewfinder">
+      <span class="vf-corner-tr"></span><span class="vf-corner-bl"></span>
+      <p class="eyebrow">CS 180 · Project 0</p>
+      <h1 class="title">Becoming Friends<br>with My Camera</h1>
+      <p class="byline">Tim — Intro to Computer Vision and Computational Photography, Fall 2026</p>
+      <div class="exif">
+        <span>FOCAL <b>24–85mm</b></span>
+        <span>APERTURE <b>ƒ/1.8</b></span>
+        <span>SUBJECT <b>Perspective &amp; Center of Projection</b></span>
+      </div>
+    </div>
+    <div class="intro-copy">
+      <p>A camera doesn't just record a scene — where you stand and how far you zoom quietly rewrites its geometry. This page walks through three experiments in that relationship: a selfie taken two different ways, a building facade compressed and stretched, and a dolly zoom that pulls both tricks at once.</p>
+    </div>
+  </div>
+</header>
+
+<section class="part" id="part1">
+  <div class="wrap">
+    <div class="part-head">
+      <span class="part-num">01</span>
+      <h2 class="part-title">The Selfie: Wrong Way vs. Right Way</h2>
+    </div>
+    <p class="part-dek">Same face, same framing — one shot from close range, one taken from several feet back and zoomed in to match. Compare what happens to the proportions of the face.</p>
+
+    <div class="compare">
+      <figure class="frame">
+        <div class="frame-box">
+          <img src="photos/selfie-close.jpg" alt="Close-up selfie taken from arm's length" onerror="this.classList.add('missing')">
+          <div class="fallback">
+            <strong>photos/selfie-close.jpg</strong>
+            <span>Close-up shot, arm's length</span>
+          </div>
+        </div>
+        <figcaption class="frame-cap"><span>Close range</span><b>~24mm equiv.</b></figcaption>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box">
+          <img src="photos/selfie-far.jpg" alt="Same subject shot from several feet back, zoomed in" onerror="this.classList.add('missing')">
+          <div class="fallback">
+            <strong>photos/selfie-far.jpg</strong>
+            <span>Stepped back, zoomed in</span>
+          </div>
+        </div>
+        <figcaption class="frame-cap"><span>Several feet back</span><b>~85mm equiv.</b></figcaption>
+      </figure>
+    </div>
+
+    <div class="why-box" contenteditable="true" spellcheck="false">
+      <span class="why-label">Why does this happen? (edit me)</span>
+      Up close, the nose and eyes sit much nearer to the lens than the ears and jaw, so nearby features project larger onto the sensor than far ones — the classic wide-angle "big nose" effect. Stepping back and zooming in flattens that difference: every part of the face is now roughly the same distance from the camera, so relative proportions look natural again. The lesson is that flattering portraits are less about the lens itself and more about camera-to-subject distance.
+    </div>
+  </div>
+</section>
+
+<section class="part" id="part2">
+  <div class="wrap">
+    <div class="part-head">
+      <span class="part-num">02</span>
+      <h2 class="part-title">Architectural Perspective Compression</h2>
+    </div>
+    <p class="part-dek">The same trick in reverse, aimed at a building facade: zoomed-in from a distance versus wide-angle up close, matched so the building reads at the same size in both.</p>
+
+    <div class="compare">
+      <figure class="frame">
+        <div class="frame-box">
+          <img src="photos/arch-far-zoomed.jpg" alt="Building photographed from a distance, zoomed in" onerror="this.classList.add('missing')">
+          <div class="fallback">
+            <strong>photos/arch-far-zoomed.jpg</strong>
+            <span>From the field, zoomed in</span>
+          </div>
+        </div>
+        <figcaption class="frame-cap"><span>Far + zoomed</span><b>compressed</b></figcaption>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box">
+          <img src="photos/arch-near-wide.jpg" alt="Same building photographed up close without zoom" onerror="this.classList.add('missing')">
+          <div class="fallback">
+            <strong>photos/arch-near-wide.jpg</strong>
+            <span>Walked up, no zoom</span>
+          </div>
+        </div>
+        <figcaption class="frame-cap"><span>Near + wide</span><b>natural depth</b></figcaption>
+      </figure>
+    </div>
+
+    <div class="why-box" contenteditable="true" spellcheck="false">
+      <span class="why-label">Why does this happen? (edit me)</span>
+      A long focal length narrows the field of view, so the background and foreground occupy a much smaller range of angles — objects at different depths end up looking similar in size, "compressing" the scene. Standing close with a wide lens does the opposite: near and far surfaces subtend very different angles, so depth and converging lines are exaggerated. Zoom controls perspective indirectly, by controlling how far away you have to stand to fill the frame.
+    </div>
+  </div>
+</section>
+
+<section class="part" id="part3">
+  <div class="wrap">
+    <div class="part-head">
+      <span class="part-num">03</span>
+      <h2 class="part-title">The Dolly Zoom</h2>
+    </div>
+    <p class="part-dek">Moving the camera back while zooming in, timed so the subject stays the same size — the "Vertigo shot." The background does all the moving.</p>
+
+    <div class="filmstrip">
+      <div class="filmstrip-track">
+        <div class="frame-box"><img src="photos/dolly-01.jpg" alt="Dolly zoom sequence frame 1" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-01.jpg</strong></div></div>
+        <div class="frame-box"><img src="photos/dolly-02.jpg" alt="Dolly zoom sequence frame 2" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-02.jpg</strong></div></div>
+        <div class="frame-box"><img src="photos/dolly-03.jpg" alt="Dolly zoom sequence frame 3" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-03.jpg</strong></div></div>
+        <div class="frame-box"><img src="photos/dolly-04.jpg" alt="Dolly zoom sequence frame 4" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-04.jpg</strong></div></div>
+        <div class="frame-box"><img src="photos/dolly-05.jpg" alt="Dolly zoom sequence frame 5" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-05.jpg</strong></div></div>
+        <div class="frame-box"><img src="photos/dolly-06.jpg" alt="Dolly zoom sequence frame 6" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-06.jpg</strong></div></div>
+      </div>
+    </div>
+
+    <figure class="frame gif-frame">
+      <div class="frame-box">
+        <img src="photos/dolly-zoom.gif" alt="Animated GIF of the dolly zoom effect" onerror="this.classList.add('missing')">
+        <div class="fallback">
+          <strong>photos/dolly-zoom.gif</strong>
+          <span>Combined animated GIF goes here</span>
+        </div>
+      </div>
+      <figcaption class="frame-cap"><span>6 stills combined</span><b>dolly out + zoom in</b></figcaption>
+    </figure>
+
+    <div class="why-box" contenteditable="true" spellcheck="false">
+      <span class="why-label">Setup notes (edit me)</span>
+      Describe your scene, roughly how far you moved back, and how you matched subject size across frames — e.g. using a fixed reference object in frame to judge scale before combining the stills into a GIF.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
+    <span>CS 180 · Fall 2026 · Project 0</span>
+    <span>Built by Tim — <a href="#top">back to top</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

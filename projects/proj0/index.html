@@ -162,14 +162,9 @@
       repeating-linear-gradient(135deg, var(--paper-dim) 0 10px, var(--paper) 10px 20px);
     border:1px solid var(--line);
   }
-  .frame-box img{
+  .frame-box img, .frame-box video{
     position:relative; z-index:2;
     width:100%; height:100%; object-fit:cover; display:block;
-    filter:blur(3px) saturate(0.85);
-    transition:filter 0.35s ease;
-  }
-  .frame-box:hover img, .frame-box:focus-within img{
-    filter:blur(0) saturate(1);
   }
   .frame-box img.missing{ display:none; }
   .fallback{
@@ -217,7 +212,11 @@
     aspect-ratio:3/4; width:150px; flex:0 0 auto;
   }
   .gif-frame .frame-box{
-    aspect-ratio:16/10; width:100%;
+    aspect-ratio:16/9; width:100%;
+  }
+  .gif-frame .frame-box img,
+  .gif-frame .frame-box video{
+    object-fit:contain;
   }
 
   /* ---------- FOOTER ---------- */
@@ -347,32 +346,19 @@
     </div>
     <p class="part-dek">Moving the camera back while zooming in, timed so the subject stays the same size — the "Vertigo shot." The background does all the moving.</p>
 
-    <div class="filmstrip">
-      <div class="filmstrip-track">
-        <div class="frame-box"><img src="photos/dolly-01.jpg" alt="Dolly zoom sequence frame 1" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-01.jpg</strong></div></div>
-        <div class="frame-box"><img src="photos/dolly-02.jpg" alt="Dolly zoom sequence frame 2" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-02.jpg</strong></div></div>
-        <div class="frame-box"><img src="photos/dolly-03.jpg" alt="Dolly zoom sequence frame 3" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-03.jpg</strong></div></div>
-        <div class="frame-box"><img src="photos/dolly-04.jpg" alt="Dolly zoom sequence frame 4" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-04.jpg</strong></div></div>
-        <div class="frame-box"><img src="photos/dolly-05.jpg" alt="Dolly zoom sequence frame 5" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-05.jpg</strong></div></div>
-        <div class="frame-box"><img src="photos/dolly-06.jpg" alt="Dolly zoom sequence frame 6" onerror="this.classList.add('missing')"><div class="fallback"><strong>dolly-06.jpg</strong></div></div>
-      </div>
-    </div>
-
     <figure class="frame gif-frame">
       <div class="frame-box">
-        <img src="photos/dolly-zoom.gif" alt="Animated GIF of the dolly zoom effect" onerror="this.classList.add('missing')">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="photos/dolly-zoom.webm" type="video/webm">
+          <source src="photos/dolly-zoom.mp4" type="video/mp4">
+        </video>
         <div class="fallback">
-          <strong>photos/dolly-zoom.gif</strong>
-          <span>Combined animated GIF goes here</span>
+          <strong>photos/dolly-zoom.mp4</strong>
+          <span>Dolly zoom clip goes here</span>
         </div>
       </div>
-      <figcaption class="frame-cap"><span>6 stills combined</span><b>dolly out + zoom in</b></figcaption>
+      <figcaption class="frame-cap"><span>continuous clip</span><b>dolly out + zoom in</b></figcaption>
     </figure>
-
-    <div class="why-box" contenteditable="true" spellcheck="false">
-      <span class="why-label">Setup notes (edit me)</span>
-      Describe your scene, roughly how far you moved back, and how you matched subject size across frames — e.g. using a fixed reference object in frame to judge scale before combining the stills into a GIF.
-    </div>
   </div>
 </section>
 

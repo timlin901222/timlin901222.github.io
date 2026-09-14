@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full Color Gallery — CS 180 Proj 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE7DD;
+    --paper-dim:#E2DBCA;
+    --ink:#211F1B;
+    --ink-soft:#615D53;
+    --line:#C9BFAC;
+    --accent:#2C4A7C;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:var(--accent);}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  nav.topbar{position:sticky; top:0; z-index:20; background:rgba(237,231,221,0.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+  nav.topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px; flex-wrap:wrap; gap:8px;}
+  .mark{font-family:var(--mono); font-size:13px; letter-spacing:0.02em; display:flex; align-items:center; gap:8px;}
+  .mark .bracket{color:var(--accent); font-weight:500;}
+  nav.topbar ul{list-style:none; display:flex; gap:18px; margin:0; padding:0; font-family:var(--mono); font-size:12px; letter-spacing:0.03em; flex-wrap:wrap;}
+  nav.topbar a{color:var(--ink-soft); text-decoration:none; text-transform:uppercase;}
+  nav.topbar a:hover{color:var(--accent);}
+
+  header.hero{padding:44px 0 8px;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin:0 0 12px;}
+  h1.title{font-family:var(--display); font-weight:700; font-size:clamp(26px,4.2vw,40px); line-height:1.1; margin:0 0 12px; letter-spacing:-0.01em;}
+  .intro{color:var(--ink-soft); font-size:15.5px; max-width:680px; margin:0 0 8px;}
+
+  .section-label{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--ink-soft); border-top:1px solid var(--line); margin:36px 0 18px; padding-top:18px;
+  }
+
+  .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:900px){ .gallery{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
+
+  figure.frame{margin:0;}
+  .frame-box{position:relative; overflow:hidden; border:1px solid var(--line); background:var(--paper-dim);}
+  .frame-box img{width:100%; display:block;}
+  .frame-cap{padding:8px 1px 0;}
+  .frame-cap .name{font-family:var(--display); font-weight:600; font-size:14px; display:block;}
+  .frame-cap .meta{font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); display:block; margin-top:2px; letter-spacing:0.02em;}
+  .tag{display:inline-block; font-size:9.5px; padding:1px 5px; border:1px solid var(--line); border-radius:3px; letter-spacing:0.03em; margin-right:5px;}
+  .tag.pyr{color:var(--accent); border-color:var(--accent);}
+  .tag.own{color:#6b4b2a; border-color:#6b4b2a;}
+
+  footer{border-top:1px solid var(--line); padding:32px 0 52px; margin-top:40px; font-family:var(--mono); font-size:12px; color:var(--ink-soft);}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  footer a{color:var(--ink-soft); text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <div class="mark"><a href="../../index.html" style="color:inherit;text-decoration:none;"><span class="bracket">[</span>TN<span class="bracket">]</span></a></div>
+    <ul>
+      <li><a href="index.html">&larr; Write-up</a></li>
+      <li><a href="../../index.html">Portfolio</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">CS 180 · Project 1 · Full Gallery</p>
+    <h1 class="title">All 18 Plates, Fully Processed</h1>
+    <p class="intro">
+      Every plate from the <a href="index.html">write-up</a> — the 14 provided (3 single-scale JPEGs, 11 pyramid TIFFs)
+      plus the 4 I picked myself — run through the complete default pipeline:
+      pyramid/single-scale alignment, then auto-crop → white balance → auto-contrast.
+      (Gradient features and decorrelation stretch are opt-in per-plate extensions,
+      not part of this default batch — see the write-up's <a href="index.html#bells">Bells &amp; Whistles</a>
+      section for where each one is worth using.)
+    </p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="section-label">Provided plates (14)</p>
+  <div class="gallery">
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_cathedral.jpg" alt="cathedral, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">cathedral.jpg</span><span class="meta"><span class="tag">single-scale</span>G(2,5) R(3,12)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_monastery.jpg" alt="monastery, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">monastery.jpg</span><span class="meta"><span class="tag">single-scale</span>G(2,-3) R(2,3)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_tobolsk.jpg" alt="tobolsk, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">tobolsk.jpg</span><span class="meta"><span class="tag">single-scale</span>G(3,3) R(3,6)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_church.jpg" alt="church, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">church.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(4,25) R(-4,58)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_emir.jpg" alt="emir, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">emir.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(24,49) R(56,104)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_harvesters.jpg" alt="harvesters, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">harvesters.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(17,60) R(13,124)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_icon.jpg" alt="icon, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">icon.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(17,41) R(23,89)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_ilemselga.jpg" alt="ilemselga, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">ilemselga.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(7,40) R(11,130)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_melons.jpg" alt="melons, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">melons.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(10,82) R(13,178)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_religous_painting.jpg" alt="religious painting, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">religous_painting.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(3,28) R(7,68)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_self_portrait.jpg" alt="self portrait, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">self_portrait.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(29,79) R(36,176)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_siren.jpg" alt="siren, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">siren.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(-6,49) R(-25,96)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_three_generations.jpg" alt="three generations, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">three_generations.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(14,53) R(11,112)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_wharf.jpg" alt="wharf, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">wharf.tif</span><span class="meta"><span class="tag pyr">pyramid</span>G(-7,15) R(-16,83)</span></figcaption>
+    </figure>
+  </div>
+
+  <p class="section-label">My own plates (4)</p>
+  <div class="gallery">
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_own_village_church.jpg" alt="village church, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">own_village_church.jpg</span><span class="meta"><span class="tag own">own</span>G(1,5) R(1,10)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_own_brick_church.jpg" alt="brick church, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">own_brick_church.jpg</span><span class="meta"><span class="tag own">own</span>G(2,-11) R(4,-6)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_own_hazy_city.jpg" alt="hazy city, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">own_hazy_city.jpg</span><span class="meta"><span class="tag own">own</span>G(2,6) R(3,12)</span></figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="frame-box"><img src="photos/gallery_own_palace_interior.jpg" alt="palace interior, fully processed"></div>
+      <figcaption class="frame-cap"><span class="name">own_palace_interior.jpg</span><span class="meta"><span class="tag own">own</span>G(-1,2) R(-3,6)</span></figcaption>
+    </figure>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>CS 180 · Fall 2026 · Project 1</span>
+    <span><a href="index.html">&larr; back to write-up</a> · <a href="../../index.html">portfolio</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

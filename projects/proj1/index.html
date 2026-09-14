@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Images of the Russian Empire — CS 180 Proj 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE7DD;
+    --paper-dim:#E2DBCA;
+    --ink:#211F1B;
+    --ink-soft:#615D53;
+    --line:#C9BFAC;
+    --accent:#2C4A7C;
+    --accent-soft:#B9CEE6;
+    --good:#3E6B4F;
+    --bad:#9C4A3C;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --maxw: 960px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:var(--accent);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  nav.topbar{position:sticky; top:0; z-index:20; background:rgba(237,231,221,0.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+  nav.topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px; flex-wrap:wrap; gap:8px;}
+  .mark{font-family:var(--mono); font-size:13px; letter-spacing:0.02em; display:flex; align-items:center; gap:8px;}
+  .mark .bracket{color:var(--accent); font-weight:500;}
+  nav.topbar ul{list-style:none; display:flex; gap:18px; margin:0; padding:0; font-family:var(--mono); font-size:12px; letter-spacing:0.03em; flex-wrap:wrap;}
+  nav.topbar a{color:var(--ink-soft); text-decoration:none; text-transform:uppercase;}
+  nav.topbar a:hover{color:var(--accent);}
+
+  header.hero{padding:56px 0 48px;}
+  .viewfinder{position:relative; border:1px solid var(--line); padding:48px 28px; text-align:center; background:var(--paper-dim);}
+  .viewfinder::before, .viewfinder::after, .vf-tr, .vf-bl{content:""; position:absolute; width:26px; height:26px; border:2px solid var(--accent);}
+  .viewfinder::before{top:-1px; left:-1px; border-right:none; border-bottom:none;}
+  .viewfinder::after{bottom:-1px; right:-1px; border-left:none; border-top:none;}
+  .vf-tr{top:-1px; right:-1px; border-left:none; border-bottom:none;}
+  .vf-bl{bottom:-1px; left:-1px; border-right:none; border-top:none;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin:0 0 16px;}
+  h1.title{font-family:var(--display); font-weight:700; font-size:clamp(28px,4.6vw,44px); line-height:1.1; margin:0 0 14px; letter-spacing:-0.01em;}
+  .byline{color:var(--ink-soft); font-size:15.5px; margin:0 0 20px;}
+  .intro-copy{max-width:660px; margin:32px auto 0; font-size:16px; text-align:left;}
+  .intro-copy p{margin:0 0 14px;}
+
+  section.part{padding:56px 0; border-top:1px solid var(--line);}
+  .part-head{display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap;}
+  .part-num{font-family:var(--mono); font-size:12.5px; color:var(--accent); border:1px solid var(--accent); padding:2px 8px; letter-spacing:0.05em;}
+  h2.part-title{font-family:var(--display); font-weight:600; font-size:clamp(20px,2.8vw,27px); margin:0; letter-spacing:-0.01em;}
+  .part-dek{color:var(--ink-soft); font-size:15px; max-width:660px; margin:12px 0 28px;}
+
+  figure.frame{margin:0;}
+  .frame-box{position:relative; overflow:hidden; border:1px solid var(--line); background:var(--paper-dim);}
+  .frame-box img{width:100%; display:block;}
+  .frame-cap{display:flex; justify-content:space-between; gap:10px; font-family:var(--mono); font-size:11px; color:var(--ink-soft); padding:7px 1px 0; letter-spacing:0.02em;}
+  .frame-cap b{color:var(--ink); font-weight:500;}
+
+  .trio{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:720px){ .trio{grid-template-columns:1fr;} }
+
+  .grid14{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px;}
+  @media (max-width:820px){ .grid14{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .grid14{grid-template-columns:repeat(2,1fr);} }
+
+  table.offsets{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12.5px; margin-top:8px;}
+  table.offsets caption{caption-side:top; text-align:left; font-family:var(--body); font-size:14px; color:var(--ink-soft); margin-bottom:10px;}
+  table.offsets th, table.offsets td{border-bottom:1px solid var(--line); padding:8px 10px; text-align:left;}
+  table.offsets th{color:var(--ink-soft); font-weight:500; text-transform:uppercase; font-size:10.5px; letter-spacing:0.04em;}
+  table.offsets tr:hover td{background:var(--paper-dim);}
+  .tag{display:inline-block; font-size:10px; padding:1px 6px; border:1px solid var(--line); border-radius:3px; letter-spacing:0.03em;}
+  .tag.pyr{color:var(--accent); border-color:var(--accent);}
+  .overflow-x{overflow-x:auto;}
+
+  .own-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-bottom:8px;}
+  @media (max-width:620px){ .own-grid{grid-template-columns:1fr;} }
+  .own-cap{margin:10px 0 0; font-size:14px; color:var(--ink-soft);}
+  .own-cap a{color:var(--ink-soft); text-decoration:underline;}
+
+  .why-box{border-left:2px solid var(--accent); background:var(--paper-dim); padding:16px 20px; font-size:14.5px; margin-top:18px;}
+  .why-box .why-label{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); display:block; margin-bottom:8px;}
+  .why-box.warn{border-left-color:var(--bad);}
+  .why-box.warn .why-label{color:var(--bad);}
+
+  .bw-block{border-top:1px dashed var(--line); padding:30px 0;}
+  .bw-block:first-of-type{border-top:none; padding-top:6px;}
+  .bw-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px; flex-wrap:wrap;}
+  .bw-num{font-family:var(--mono); font-size:11px; color:var(--accent);}
+  h3.bw-title{font-family:var(--display); font-weight:600; font-size:19px; margin:0;}
+  .bw-desc{font-size:14.5px; color:var(--ink); max-width:680px; margin:8px 0 16px;}
+  .compare2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:620px){ .compare2{grid-template-columns:1fr;} }
+  .compare2 .frame-cap span{text-transform:uppercase; letter-spacing:0.05em;}
+
+  footer{border-top:1px solid var(--line); padding:32px 0 52px; font-family:var(--mono); font-size:12px; color:var(--ink-soft);}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  footer a{color:var(--ink-soft); text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <div class="mark"><a href="../../index.html" style="color:inherit;text-decoration:none;"><span class="bracket">[</span>TN<span class="bracket">]</span></a></div>
+    <ul>
+      <li><a href="../../index.html">&larr; Portfolio</a></li>
+      <li><a href="#single">01 Single-scale</a></li>
+      <li><a href="#pyramid">02 Pyramid</a></li>
+      <li><a href="#own">03 My photos</a></li>
+      <li><a href="#bells">04 Bells&nbsp;&amp;&nbsp;Whistles</a></li>
+      <li><a href="gallery.html">Gallery&nbsp;&nearr;</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="viewfinder">
+      <span class="vf-tr"></span><span class="vf-bl"></span>
+      <p class="eyebrow">CS 180 · Project 1</p>
+      <h1 class="title">Images of the Russian Empire</h1>
+      <p class="byline">Colorizing the Prokudin-Gorskii glass plate collection — Tim, Fall 2026</p>
+    </div>
+    <div class="intro-copy">
+      <p>
+        Sergei Prokudin-Gorskii photographed the Russian Empire in color before color film existed,
+        by exposing three plates of the same scene through red, green, and blue filters.
+        Each digitized glass plate survives as one tall grayscale image — three stacked exposures, B/G/R top to bottom.
+      </p>
+      <p>
+        Pipeline: split each plate into equal thirds, then search for the (x, y) shift that best aligns G and R onto B —
+        exhaustively for small JPEGs, and via a coarse-to-fine image pyramid for the large TIFFs, so it stays fast.
+        Bells &amp; whistles below build on top of that.
+      </p>
+    </div>
+  </div>
+</header>
+
+<section class="part" id="single">
+  <div class="wrap">
+    <div class="part-head"><span class="part-num">01</span><h2 class="part-title">Single-Scale Alignment</h2></div>
+    <p class="part-dek">
+      The three low-resolution JPEGs are small enough (≤1024px) to align with a brute-force search:
+      try every integer shift (dx, dy) in a ±15px window and keep whichever scores best.
+    </p>
+
+    <div class="why-box">
+      <span class="why-label">How a shift gets scored: NCC vs. L2</span>
+      Both metrics are implemented (<code>colorize.py</code>'s <code>ncc()</code> / <code>ssd()</code>),
+      scored on the interior 84% of the image so the plate border can't dominate the match:
+      <ul style="margin:10px 0 10px 18px; padding:0;">
+        <li>
+          <b>L2 / SSD</b> — <code>sum((a − b)²)</code>, the raw sum of squared pixel differences.
+          Lower is better; treats every pixel equally and is thrown off by any overall brightness difference between channels.
+        </li>
+        <li>
+          <b>NCC</b> — <code>sum( â · b̂ )</code> where <code>â = (a − mean(a)) / ‖a − mean(a)‖</code> (same for <code>b̂</code>):
+          mean-subtract and unit-normalize both patches first, then dot them.
+          Higher is better, and because each patch is re-scaled to its own mean/variance,
+          NCC stays meaningful even when the two channels' brightness levels differ.
+        </li>
+      </ul>
+      On these three JPEGs both metrics agree on every offset (the channels are close enough in brightness that it doesn't matter);
+      NCC is the default everywhere below since it's the one that keeps working once brightness actually diverges.
+    </div>
+
+    <div class="trio">
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/single_cathedral.jpg" alt="Aligned cathedral.jpg"></div>
+        <figcaption class="frame-cap"><span>cathedral.jpg</span><b>G(2,5) R(3,12)</b></figcaption>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/single_monastery.jpg" alt="Aligned monastery.jpg"></div>
+        <figcaption class="frame-cap"><span>monastery.jpg</span><b>G(2,-3) R(2,3)</b></figcaption>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/single_tobolsk.jpg" alt="Aligned tobolsk.jpg"></div>
+        <figcaption class="frame-cap"><span>tobolsk.jpg</span><b>G(3,3) R(3,6)</b></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="pyramid">
+  <div class="wrap">
+    <div class="part-head"><span class="part-num">02</span><h2 class="part-title">Multi-Scale Pyramid Alignment</h2></div>
+    <p class="part-dek">
+      The 11 full-resolution <code>.tif</code> scans are far too large (up to ~9600×3700px) for an exhaustive ±15px search —
+      at that size it's checking 31×31 shifts over millions of pixels, repeatedly,
+      and the true misalignment can be 100+ pixels anyway (see the offset table below), well past any small window.
+    </p>
+
+    <div class="why-box">
+      <span class="why-label">Why coarse-to-fine, not just a bigger window</span>
+      A recursive pyramid (own code — <code>pyramid_align()</code> calls itself; only the downsampling step uses a library resize)
+      halves the image with <code>skimage.transform.rescale</code> until it's under 256px,
+      aligns there with the same ±15px exhaustive search as §01,
+      then climbs back up: double the estimate for the next, twice-as-large level, and refine within just ±4px.
+      Halving the image also halves the true misalignment —
+      a 100px shift at full resolution is a ~3px shift after 5 halvings, well inside that ±15px search —
+      so the coarse level finds the right neighborhood cheaply,
+      and each finer level only has to correct the rounding from the level above it, not search from scratch.
+      Both NCC and L2 are implemented (see §01);
+      the pyramid results below use NCC on raw RGB pixel values, as the deliverable asks.
+    </div>
+
+    <div class="grid14">
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_cathedral.jpg" alt="cathedral"></div><figcaption class="frame-cap"><span>cathedral</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_monastery.jpg" alt="monastery"></div><figcaption class="frame-cap"><span>monastery</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_tobolsk.jpg" alt="tobolsk"></div><figcaption class="frame-cap"><span>tobolsk</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_church.jpg" alt="church"></div><figcaption class="frame-cap"><span>church</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_emir.jpg" alt="emir"></div><figcaption class="frame-cap"><span>emir</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_harvesters.jpg" alt="harvesters"></div><figcaption class="frame-cap"><span>harvesters</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_icon.jpg" alt="icon"></div><figcaption class="frame-cap"><span>icon</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_ilemselga.jpg" alt="ilemselga"></div><figcaption class="frame-cap"><span>ilemselga</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_melons.jpg" alt="melons"></div><figcaption class="frame-cap"><span>melons</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_religous_painting.jpg" alt="religious painting"></div><figcaption class="frame-cap"><span>rel. painting</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_self_portrait.jpg" alt="self portrait"></div><figcaption class="frame-cap"><span>self portrait</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_siren.jpg" alt="siren"></div><figcaption class="frame-cap"><span>siren</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_three_generations.jpg" alt="three generations"></div><figcaption class="frame-cap"><span>3 generations</span></figcaption></figure>
+      <figure class="frame"><div class="frame-box"><img src="photos/grid_wharf.jpg" alt="wharf"></div><figcaption class="frame-cap"><span>wharf</span></figcaption></figure>
+    </div>
+
+    <p style="font-size:14.5px; color:var(--ink-soft); max-width:660px;">
+      Every offset above lands in a plausible range and reproduces what an exhaustive search finds at full resolution —
+      no alignment defects across these 14, or across the 4 of my own in §03.
+    </p>
+
+    <div class="overflow-x">
+    <table class="offsets">
+      <caption>Computed displacement vectors, in (x, y) pixels, aligning G and R onto B</caption>
+      <thead><tr><th>Plate</th><th>Method</th><th>G offset</th><th>R offset</th></tr></thead>
+      <tbody>
+        <tr><td>cathedral.jpg</td><td><span class="tag">single-scale</span></td><td>(2, 5)</td><td>(3, 12)</td></tr>
+        <tr><td>monastery.jpg</td><td><span class="tag">single-scale</span></td><td>(2, -3)</td><td>(2, 3)</td></tr>
+        <tr><td>tobolsk.jpg</td><td><span class="tag">single-scale</span></td><td>(3, 3)</td><td>(3, 6)</td></tr>
+        <tr><td>church.tif</td><td><span class="tag pyr">pyramid</span></td><td>(4, 25)</td><td>(-4, 58)</td></tr>
+        <tr><td>emir.tif</td><td><span class="tag pyr">pyramid</span></td><td>(24, 49)</td><td>(56, 104)</td></tr>
+        <tr><td>harvesters.tif</td><td><span class="tag pyr">pyramid</span></td><td>(17, 60)</td><td>(13, 124)</td></tr>
+        <tr><td>icon.tif</td><td><span class="tag pyr">pyramid</span></td><td>(17, 41)</td><td>(23, 89)</td></tr>
+        <tr><td>ilemselga.tif</td><td><span class="tag pyr">pyramid</span></td><td>(7, 40)</td><td>(11, 130)</td></tr>
+        <tr><td>melons.tif</td><td><span class="tag pyr">pyramid</span></td><td>(10, 82)</td><td>(13, 178)</td></tr>
+        <tr><td>religous_painting.tif</td><td><span class="tag pyr">pyramid</span></td><td>(3, 28)</td><td>(7, 68)</td></tr>
+        <tr><td>self_portrait.tif</td><td><span class="tag pyr">pyramid</span></td><td>(29, 79)</td><td>(36, 176)</td></tr>
+        <tr><td>siren.tif</td><td><span class="tag pyr">pyramid</span></td><td>(-6, 49)</td><td>(-25, 96)</td></tr>
+        <tr><td>three_generations.tif</td><td><span class="tag pyr">pyramid</span></td><td>(14, 53)</td><td>(11, 112)</td></tr>
+        <tr><td>wharf.tif</td><td><span class="tag pyr">pyramid</span></td><td>(-7, 15)</td><td>(-16, 83)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p style="font-size:14.5px; color:var(--ink-soft); max-width:660px; margin-top:20px;">
+      The thumbnails above are the plain aligned baseline, as the deliverable asks for.
+      For the polished version of all 18 plates — these 14 plus the 4 of my own in §03,
+      each with auto-crop, white balance, and contrast applied — see the
+      <a href="gallery.html">full color gallery</a>.
+    </p>
+  </div>
+</section>
+
+<section class="part" id="own">
+  <div class="wrap">
+    <div class="part-head"><span class="part-num">03</span><h2 class="part-title">My Own Plates</h2></div>
+    <p class="part-dek">
+      Four more plates I picked from the
+      <a href="https://www.loc.gov/collections/prokudin-gorskii/?st=grid" target="_blank" rel="noopener">Library of Congress collection</a>
+      (not in the provided set), run through the full pipeline — pyramid alignment plus every bells &amp; whistle below.
+    </p>
+    <div class="own-grid">
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/own_village_church.jpg" alt="Village with monastery church, low-res LoC scan"></div>
+        <p class="own-cap">A village and monastery church across a field. G(1,5) R(1,10).</p>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/own_brick_church.jpg" alt="Brick church facade, low-res LoC scan"></div>
+        <p class="own-cap">A brick church facade. G(2,-11) R(4,-6).</p>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/own_hazy_city.jpg" alt="Hazy aerial view of a city, low-res LoC scan"></div>
+        <p class="own-cap">A hazy aerial city view. The magenta blob in the sky is dust/damage on the G plate, not a misalignment — the B and R thirds are clean there. G(2,6) R(3,12).</p>
+      </figure>
+      <figure class="frame">
+        <div class="frame-box"><img src="photos/own_palace_interior.jpg" alt="Ornate palace interior, low-res LoC scan"></div>
+        <p class="own-cap">An ornate palace interior. G(-1,2) R(-3,6).</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="bells">
+  <div class="wrap">
+    <div class="part-head"><span class="part-num">04</span><h2 class="part-title">Bells &amp; Whistles</h2></div>
+    <p class="part-dek">
+      The 5 required extensions: auto-crop, auto-contrast, auto white balance, better color mapping, better features.
+      Each is shown in isolation against the same plain aligned baseline.
+    </p>
+
+    <div class="bw-block">
+      <div class="bw-head"><span class="bw-num">4.1</span><h3 class="bw-title">Automatic Cropping</h3></div>
+      <p class="bw-desc">
+        Detects the plate border instead of cutting a fixed margin,
+        scanning inward from each edge until a row/column looks like real content.
+        Four signals feed the decision:
+        pixel clipping (the scanned frame is often saturated — a clipped magenta strip reads R=1, B=1 exactly),
+        absolute darkness (a mean brightness alone below a low threshold, regardless of texture),
+        channel disagreement (R/G/B agree inside a well-aligned photo, not at the edge),
+        and flat-and-extreme (a uniform strip near pure black/white).
+        An earlier version used channel disagreement alone and cropped away a real blue sky,
+        since natural color also "disagrees" across channels — adding the clipping signal and requiring extremeness fixed it.
+        A later pass added the darkness signal on its own: some black borders carry enough scanner grain
+        to dodge the flatness check even though they're unmistakably a border, not scene content —
+        <code>icon.tif</code> had a ~130px black band on its left edge that survived every other signal
+        until darkness was checked without also requiring flatness.
+      </p>
+      <div class="compare2">
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_crop_before.jpg" alt="church.tif with the magenta plate border still visible"></div><figcaption class="frame-cap"><span>before</span><b>uncropped</b></figcaption></figure>
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_crop_after.jpg" alt="church.tif with the border cropped away"></div><figcaption class="frame-cap"><span>after</span><b>auto-cropped</b></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="bw-block">
+      <div class="bw-head"><span class="bw-num">4.2</span><h3 class="bw-title">Automatic Contrast</h3></div>
+      <p class="bw-desc">
+        Atmospheric haze scatters light into every part of a distant scene,
+        lifting the shadows and compressing everything into a narrow, washed-out middle range —
+        the plate never gets a real black or a real white.
+        <code>auto_contrast()</code> does a per-channel percentile stretch:
+        the 0.5th percentile maps to 0 and the 99.5th to 1,
+        so whatever dark-to-bright range each channel actually uses fills the full range.
+        Percentiles rather than the literal min/max pixel, so a couple of scanner dust specks can't skew the whole channel.
+        On the hazy city plate below, the channels only spanned roughly
+        [0.30, 0.97] (R), [0.11, 0.94] (G), [0.18, 0.94] (B) before the stretch, 
+        none of them got anywhere near true black or white,
+        and after, all three span essentially the full [0, 1].
+      </p>
+      <div class="compare2">
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_contrast_before.jpg" alt="Hazy city plate, low contrast"></div><figcaption class="frame-cap"><span>before</span><b>hazy, flat</b></figcaption></figure>
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_contrast_after.jpg" alt="Hazy city plate, contrast stretched"></div><figcaption class="frame-cap"><span>after</span><b>stretched</b></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="bw-block">
+      <div class="bw-head"><span class="bw-num">4.3</span><h3 class="bw-title">Automatic White Balance</h3></div>
+      <p class="bw-desc">
+        Two illuminant estimators are implemented.
+        <b>Gray-world</b> (the default, shown below) assumes the scene averages out to neutral gray
+        and scales each channel so their means match.
+        <b>White-patch</b> instead assumes the single brightest surface in the scene is meant to be white,
+        and scales channels so the 99th-percentile pixel hits 1.0. White-patch is
+        better when there's a genuinely white/bright reference object in frame,
+        but easily thrown off by one stray specular highlight or dust speck,
+        so gray-world (an average over the whole scene, less sensitive to any one pixel) is the safer default.
+        This plate has a strong blue color cast (before: R≈0.38, G≈0.45, B≈0.61 on average);
+        gray-world pulls all three to the same mean, warming the whole image and reducing the cast.
+      </p>
+      <div class="compare2">
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_wb_before.jpg" alt="Siren.tif with a blue color cast"></div><figcaption class="frame-cap"><span>before</span><b>blue cast</b></figcaption></figure>
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_wb_after.jpg" alt="Siren.tif with gray-world white balance applied"></div><figcaption class="frame-cap"><span>after</span><b>gray-world</b></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="bw-block">
+      <div class="bw-head"><span class="bw-num">4.4</span><h3 class="bw-title">Better Color Mapping</h3></div>
+      <p class="bw-desc">
+        There's no reason the plate's red/green/blue filters should map exactly onto sRGB's R/G/B primaries.
+        A plate's three channels are highly correlated (mostly all just measuring brightness),
+        so a per-channel stretch barely touches the real color signal.
+        I implemented a function that computes the principal components of the pixel color distribution
+        via eigendecomposition of the 3×3 color covariance matrix,
+        stretches each component toward a shared target variance, then rotates back to RGB.
+        <code>strength</code> (0–1, default 0.45) blends each component's scale between
+        "leave it alone" and "fully equalize," rather than always fully equalizing:
+        a full stretch reliably blows out any plate with real saturated color already in it into something neon.
+        Below is the same lilac plate used in <a href="#bells">§4.3</a>'s white-balance example. We observe that the after picture has 
+        more realistic and saturated colors without needing white balance.
+      </p>
+      <div class="compare2">
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_colormap_before.jpg" alt="Lilac bush plate, direct RGB mapping"></div><figcaption class="frame-cap"><span>before</span><b>direct RGB</b></figcaption></figure>
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_colormap_after.jpg" alt="Lilac bush plate, decorrelation stretch, deeper purples and greens"></div><figcaption class="frame-cap"><span>after</span><b>decorrelation stretch</b></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="bw-block">
+      <div class="bw-head"><span class="bw-num">4.5</span><h3 class="bw-title">Better Features for Alignment</h3></div>
+      <p class="bw-desc">
+        The spec mentions <code>emir.tif</code> has three exposures that have different brightness levels,
+        so raw-pixel NCC gets confused about what "matches" and it finds a shift that's close but not exact.
+        Switching the alignment metric to score on gradient magnitude
+        (<code>np.gradient</code> → <code>np.hypot(gx, gy)</code>, computed once per pyramid level
+        and rolled along with the search) instead of raw pixels fixes this:
+        edges (a robe's outline, a doorway) still line up across channels even when overall brightness doesn't.
+        We notice better edge alignment on the after photo. Specifically, the patterns of the robe look way sharper.
+      </p>
+      <div class="compare2">
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_features_before.jpg" alt="Emir.tif aligned on raw pixel values, visible ghosting"></div><figcaption class="frame-cap"><span>before</span><b>pixels, R(56,104)</b></figcaption></figure>
+        <figure class="frame"><div class="frame-box"><img src="photos/bw_features_after.jpg" alt="Emir.tif aligned on gradient magnitude, ghosting resolved"></div><figcaption class="frame-cap"><span>after</span><b>gradient, R(40,107)</b></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>CS 180 · Fall 2026 · Project 1</span>
+    <span>Built by Tim — <a href="https://github.com/timlin901222/timlin901222.github.io" target="_blank" rel="noopener">code</a> · <a href="../../index.html">back to portfolio</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

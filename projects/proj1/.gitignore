@@ -12,3 +12,9 @@ __pycache__/
 .venv/
 venv/
 .ipynb_checkpoints/
+
+# webpage asset-generation helper scripts -- reproducibility tooling only,
+# not part of the graded deliverable; kept locally, not submitted
+make_demos.py
+make_gallery_assets.py
+make_web_assets.py

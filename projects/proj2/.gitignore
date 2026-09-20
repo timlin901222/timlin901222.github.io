@@ -1,0 +1,14 @@
+# source images + generated results are large; don't commit to the website repo
+data/*
+output/*
+!data/.gitkeep
+!output/.gitkeep
+*.tif
+*.tiff
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
